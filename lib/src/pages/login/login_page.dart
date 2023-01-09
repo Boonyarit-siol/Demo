@@ -12,6 +12,7 @@ class _LoginPageState extends State<LoginPage> {
   // ค่า final คือ ตัวเเปรที่เเก้ไขค่าของตัวเเปรไม่ได้//
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  int count = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -32,8 +33,8 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.all(32.0),
             child: Card(
               child: Container(
-                  padding: const EdgeInsets.all(32),
-                  height: 370,
+                  padding: const EdgeInsets.all(2),
+                  height: 500,
                   child: Column(
                     // ยืดปุ่ม login & reset
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,7 +43,32 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         height: 32,
                       ),
-                      ..._buildButtons()
+                      ..._buildButtons(),
+                      Row(
+                        children: [
+                          Text("Debug: $count"),
+                          IconButton(
+                            onPressed: () {
+                              count = count+1;
+                              // setState คือ ไว้เรียกใช้ function build ทำซ้ำอีกครั้ง
+                              setState(() {
+
+                              });
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              count = count -1;
+                              setState(() {
+
+                              });
+                            },
+                            icon: Icon(Icons.remove),
+
+                          )
+                        ],
+                      )
                     ], // ...เพื่อถอด array ออกมา],
                   )),
             ),
@@ -50,14 +76,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _handaleClickLogin() {
-  //   print(
-  //       "Dev:Login with ${_usernameController.text}, ${_passwordController.text}) ");
+  void _handleClickLogin() {
+    //   print(
+    //       "Dev:Login with ${_usernameController.text}, ${_passwordController.text}) ");
     Navigator.pushNamed(context, AppRoute.home);
-        // link to home_page.dart
+    // link to home_page.dart
   }
 
-  void _handaleClickReset() {
+  void _handleClickReset() {
     _usernameController.text = "";
     _passwordController.text = "";
   }
@@ -78,15 +104,15 @@ class _LoginPageState extends State<LoginPage> {
   _buildButtons() {
     return [
       ElevatedButton(
-        onPressed: _handaleClickLogin,
+        onPressed: _handleClickLogin,
         child: Text("Signin"),
       ),
-      OutlinedButton(onPressed: _handaleClickRegister, child: Text("Register")),
-      OutlinedButton(onPressed: _handaleClickReset, child: Text("Reset")),
+      OutlinedButton(onPressed: _handleClickRegister, child: Text("Register")),
+      OutlinedButton(onPressed: _handleClickReset, child: Text("Reset")),
     ];
   }
 
-  void _handaleClickRegister() {
+  void _handleClickRegister() {
     Navigator.pushNamed(context, AppRoute.register);
   }
 }
