@@ -10,12 +10,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // ค่า final คือ ตัวเเปรที่เเก้ไขค่าของตัวเเปรไม่ได้//
   final _usernameController = TextEditingController();
-
+  final _passwordController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _usernameController.text = "admin";
+    _passwordController.text = "1234";
   }
 
   @override
@@ -28,20 +29,57 @@ class _LoginPageState extends State<LoginPage> {
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(32.0),
-            child: Column(
-              children: [
-                TextField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(labelText: "Username"),
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      print("Dev: Login");
-                    },
-                    child: Text("Login"))
-              ],
+            child: Card(
+              child : Container(
+              padding: const EdgeInsets.all(32),
+              height: 350,
+              child: Column(
+                // ยืดปุ่ม login & reset
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ..._buildTextFields(),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  ..._buildButtons()
+                ], // ...เพื่อถอด array ออกมา],
+              )
+              ),
             ),
           )),
     );
+  }
+
+  void _handaleClickLogin() {
+    print(
+        "Dev:Login with ${_usernameController.text}, ${_passwordController.text}) ");
+  }
+
+  void _handaleClickReset() {
+    _usernameController.text = "";
+    _passwordController.text = "";
+  }
+
+  _buildTextFields() {
+    return [
+      TextField(
+        controller: _usernameController,
+        decoration: InputDecoration(labelText: "Username"),
+      ),
+      TextField(
+        controller: _passwordController,
+        decoration: InputDecoration(labelText: "Password"),
+      ),
+    ];
+  }
+
+  _buildButtons() {
+    return [
+      ElevatedButton(
+        onPressed: _handaleClickLogin,
+        child: Text("Login"),
+      ),
+      OutlinedButton(onPressed: _handaleClickReset, child: Text("Reset"))
+    ];
   }
 }
