@@ -8,6 +8,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // ค่า final คือ ตัวเเปรที่เเก้ไขค่าของตัวเเปรไม่ได้//
+  final _usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _usernameController.text = "admin";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,22 +25,23 @@ class _LoginPageState extends State<LoginPage> {
         title: Text("Login Page"),
       ),
       body: Container(
-        width: double.infinity,
-        color: Colors.purple.withOpacity(0.2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Text("codemobiles.com"),
-              color: Color(0xfffffff00),
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              children: [
+                TextField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(labelText: "Username"),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      print("Dev: Login");
+                    },
+                    child: Text("Login"))
+              ],
             ),
-            Text("codemobiles.com"),
-            Text("codemobiles.com"),
-            Text("codemobiles.com"),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }
