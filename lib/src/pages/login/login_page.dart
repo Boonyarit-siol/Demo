@@ -47,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         children: [
                           Text("Debug: $count"),
+                          // seperation of concern => การเเยกโค้ดเป็นส่วนๆ เช่น
                           IconButton(
                             onPressed: _handleClickAdd,
                             icon: const Icon(Icons.add),
@@ -106,14 +107,11 @@ class _LoginPageState extends State<LoginPage> {
 
   void _handleClickAdd() {
     count++;
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   void _handleClickRemove() {
     count--;
-    setState(() {
-
-    });
+    setState(() {});
   }
 }
