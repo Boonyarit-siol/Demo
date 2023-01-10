@@ -48,25 +48,13 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Text("Debug: $count"),
                           IconButton(
-                            onPressed: () {
-                              count = count+1;
-                              // setState คือ ไว้เรียกใช้ function build ทำซ้ำอีกครั้ง
-                              setState(() {
-
-                              });
-                            },
+                            onPressed: _handleClickAdd,
                             icon: const Icon(Icons.add),
                           ),
                           IconButton(
-                            onPressed: () {
-                              count = count -1;
-                              setState(() {
-
-                              });
-                            },
+                            onPressed: _handleClickRemove,
                             icon: Icon(Icons.remove),
-
-                          )
+                          ),
                         ],
                       )
                     ], // ...เพื่อถอด array ออกมา],
@@ -114,5 +102,18 @@ class _LoginPageState extends State<LoginPage> {
 
   void _handleClickRegister() {
     Navigator.pushNamed(context, AppRoute.register);
+  }
+
+  void _handleClickAdd() {
+    count++;
+    setState(() {
+
+    });
+  }
+  void _handleClickRemove() {
+    count--;
+    setState(() {
+
+    });
   }
 }
