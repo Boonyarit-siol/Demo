@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_app/src/bloc/login/login_bloc.dart';
 import 'package:my_app/src/pages/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   // ค่า final คือ ตัวเเปรที่เเก้ไขค่าของตัวเเปรไม่ได้//
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  int count = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -46,14 +48,22 @@ class _LoginPageState extends State<LoginPage> {
                       ..._buildButtons(),
                       Row(
                         children: [
-                          Text("Debug: $count"),
+                          BlocBuilder<LoginBloc, LoginState>(
+                            builder: (context, state) {
+                              return Text("Debug: ${state.count}");
+                            },
+                          ),
                           // seperation of concern => การเเยกโค้ดเป็นส่วนๆ เช่น
                           IconButton(
-                            onPressed: _handleClickAdd,
+                            onPressed: () =>
+                                context.read<LoginBloc>().add(LoginEventAdd()),
                             icon: const Icon(Icons.add),
                           ),
                           IconButton(
-                            onPressed: _handleClickRemove,
+                            onPressed: () =>
+                                context
+                                    .read<LoginBloc>()
+                                    .add(LoginEventRemove()),
                             icon: Icon(Icons.remove),
                           ),
                         ],
@@ -94,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
     return [
       ElevatedButton(
         onPressed: _handleClickLogin,
-        child: Text("Signin"),
+        child: Text("Sign"),
       ),
       OutlinedButton(onPressed: _handleClickRegister, child: Text("Register")),
       OutlinedButton(onPressed: _handleClickReset, child: Text("Reset")),
@@ -105,13 +115,4 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pushNamed(context, AppRoute.register);
   }
 
-  void _handleClickAdd() {
-    count++;
-    setState(() {});
-  }
-
-  void _handleClickRemove() {
-    count--;
-    setState(() {});
-  }
 }
